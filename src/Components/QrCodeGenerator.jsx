@@ -1,18 +1,19 @@
-import React, { useState, useRef, MutableRefObject } from "react";
-import QRCode from "react-qr-code";
-import * as htmlToImage from "html-to-image";
+import React, { useState, useRef } from "react";
 import "../index.css";
+import { QRCodeSVG } from "qrcode.react";
+import * as htmlToImage from "html-to-image";
 
 function QrCodeGenerator() {
+  const [value, setValue] = useState("");
   const [url, setUrl] = useState("");
-  const [qrIsVisible, setQrIsVisible] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleQrCodeGenerator = () => {
-    if (!url) {
+    if (!value) {
       return;
     }
-
-    setQrIsVisible(true);
+    setIsSubmit(true);
+    setUrl(value);
   };
 
   const qrCodeRef = useRef(null);
@@ -39,18 +40,18 @@ function QrCodeGenerator() {
           <input
             type="text"
             placeholder="Enter a URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
 
           <button onClick={handleQrCodeGenerator}>Generate QR Code</button>
         </div>
 
-        <div ref={qrCodeRef}>
-          {qrIsVisible && (
+        <div>
+          {isSubmit && (
             <div className="qrcode__download">
-              <div className="qrcode__image">
-                <QRCode value={url} size={300} />
+              <div className="qrcode__image" ref={qrCodeRef}>
+                <QRCodeSVG value={url} size={300} />
               </div>
               <button onClick={downloadQRCode}>Download QR Code</button>
             </div>
