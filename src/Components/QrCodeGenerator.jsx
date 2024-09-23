@@ -97,7 +97,7 @@ function QrCodeGenerator() {
               </div>
               <ImageItem src={logo} onClick={handleSelectImage} />
             </div>
-            <div className="flex flex-col w-full gap-1">
+            <div className="flex flex-col w-full gap-1 border border-[#C0C0C0] rounded-sm p-2">
               <div className="flex justify-between">
                 <label>Circle</label>
                 <input
